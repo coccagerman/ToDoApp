@@ -1,0 +1,64 @@
+.task {
+    border: black solid 1px;
+    border-radius: .25rem;
+    width: 40rem;
+    padding: 1rem 2rem;
+    margin: .5rem 0;
+
+    .line-through {
+        text-decoration: line-through;
+    }
+    
+    header {
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-bottom: .25rem;
+
+        h2 {
+            max-width: 28rem;
+        }
+
+        .icon {
+            font-size: 1.35rem;
+            cursor: pointer;
+        }
+
+        .icon-edit {
+            position: absolute;
+            right: 2.5rem;
+        }
+
+        .icon-erase {
+            position: absolute;
+            right: 0;
+        }
+
+        .icon-done {
+            font-size: 2.5rem;
+            position: absolute;
+            right: 4.5rem;
+            bottom: .25rem;
+        }
+
+        .icon-reverse {
+            font-size: 1.65rem;
+            position: absolute;
+            right: 5rem;
+        }
+    }
+
+    .task-details {
+        display: flex;
+        margin: .15rem 0;
+        font-size: .75rem;
+
+        .details-column2 {
+            margin-left: 5rem;
+        }
+
+        .details-column3 {
+            margin-left: 8rem;
+        }
+    }
+}

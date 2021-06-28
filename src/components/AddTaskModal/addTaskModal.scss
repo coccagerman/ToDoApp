@@ -1,0 +1,14 @@
+.addTaskModal {
+    form {
+        .form-input {
+            display: flex;
+            flex-direction: column;
+            margin: .5rem auto;
+            max-width: 25rem;
+
+            label, input, select {
+                margin: 0;
+            }
+        }
+    }
+}
