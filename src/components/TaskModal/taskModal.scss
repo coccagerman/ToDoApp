@@ -6,9 +6,15 @@
             margin: .5rem auto;
             max-width: 25rem;
 
-            label, input, select {
+            label, input, select, textarea {
                 margin: 0;
+                padding: .25rem;
             }
         }
+    }
+
+    .errorMsg {
+        color: red;
+        margin-right: 3rem;
     }
 }

@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react'
 import addAlt from '@iconify-icons/carbon/add-alt'
 import { auth } from '../../Services/Firebase'
 
-export default function Header ({setShowModal, user}) {
+export default function Header ({setShowModal, user, setModalProps}) {
 
     return (
         <header className='app-header'>
@@ -14,7 +14,7 @@ export default function Header ({setShowModal, user}) {
                     </div> :
             null}
 
-            <Icon icon={addAlt} className='icon' onClick={() => setShowModal(true)} />
+            <Icon icon={addAlt} className='icon' onClick={() => {setModalProps(null); setShowModal(true)}} />
         </header>
     )
 }
