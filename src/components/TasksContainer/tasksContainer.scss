@@ -9,13 +9,53 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 40rem;
+        width: 42rem;
 
         button {
             background-color: white;
             border: 1px black solid;
             border-radius: .25rem;
-            width: 6.5rem;
+            width: 8.5rem;
+            transition: .3s;
+            position: relative;
+
+            &:hover {
+                background-color: #ccc;
+            }
+
+            &:active {
+                transform: scale(1.05);
+            }
+
+            .arrow {
+                position: absolute;
+                right: .25rem;
+                top: .25rem;
+            }
+
+            .down {
+                transform: rotate(0) !important;
+            }
+
+            .up {
+                transform: rotate(180deg) !important;
+            }
+        }
+
+        .selected {
+            background-color: #ccc;
+        }
+    }
+
+    .nothingToDo {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .lazyCat {
+            width: 15rem;
+            margin-top: 5rem;
         }
     }
 }

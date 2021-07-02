@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
 import {database} from '../../Services/Firebase'
-import Task from './Task/Task'
 import SearchBar from './SearchBar/SearchBar'
+import SortingOptions from './SortingOptions/SortingOptions'
+import Task from './Task/Task'
+import LazyCat from '../../assets/lazyCat.jpeg'
 
 export default function TasksContainer ({user, setShowModal, setModalProps}) {
 
     const [savedTasks, setSavedTasks ] = useState([])
+
+    const [searchParams, setSearchParams] = useState(null)
+    const filteredSavedTasks = savedTasks.filter(task => (task.taskTittle.toLowerCase().includes(searchParams)))
+
+    const [sortParams, setSortParams ] = useState('creationDate')
 
     const showSavedTasks = () => {
 
@@ -18,19 +25,24 @@ export default function TasksContainer ({user, setShowModal, setModalProps}) {
         })
     }
 
-  useEffect(() => showSavedTasks(), [])
+    const sortTasks = () => {
+        console.log('tasks sorted')
+    }
+
+    useEffect(() => showSavedTasks())
+    useEffect(() => sortTasks(), [sortParams])
 
     return (
         <section className='tasksContainer'>
-            <SearchBar/>
-            <div className='sortingOptions'>
-                <h3>Sort by:</h3>
-                <button>Creation date</button>
-                <button>Due date</button>
-                <button>Priority</button>
-                <button>State</button>
+            <SearchBar setSearchParams={setSearchParams} />
+            <SortingOptions sortParams={sortParams} setSortParams={setSortParams} />
+
+            {savedTasks.length !== 0 ? (searchParams ? filteredSavedTasks : savedTasks).map(task => <Task taskData={task} key={task.id} setShowModal={setShowModal} setModalProps={setModalProps} />) : 
+            <div className='nothingToDo'>
+                <h2>Looks like you have nothing to do yet.</h2>
+                <img src={LazyCat} alt='Lazy cat' className='lazyCat' />                
             </div>
-            {savedTasks ? savedTasks.map(task => <Task taskData={task} key={task.id} setShowModal={setShowModal} setModalProps={setModalProps} />) : <h2>Looks like you have nothing to do yet!</h2> }
+            }
         </section>
     )
 }

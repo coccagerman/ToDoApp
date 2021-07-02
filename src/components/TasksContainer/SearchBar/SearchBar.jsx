@@ -6,8 +6,7 @@ export default function SearchBar ({setSearchParams}) {
         <article className="searchBar">
             <div className="barContainer">
                 <Icon icon={searchIcon} flip="horizontal" className='iconify'/>
-                <input type="text" className="textBox" placeholder='Search task tittles'/>
-                {/* onChange={e => setSearchParams(e.target.value.toLowerCase())} */}
+                <input type="text" className="textBox" placeholder='Search task tittles' onChange={e => setSearchParams(e.target.value.toLowerCase())}/>
             </div>
         </article>
     )
