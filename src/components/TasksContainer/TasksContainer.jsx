@@ -13,6 +13,7 @@ export default function TasksContainer ({user, setShowModal, setModalProps}) {
     const filteredSavedTasks = savedTasks.filter(task => (task.taskTittle.toLowerCase().includes(searchParams)))
 
     const [sortParams, setSortParams ] = useState('creationDate')
+    const [sortOrientantionDown, setSortOrientantionDown ] = useState(true)
 
     const showSavedTasks = () => {
         return database.where("userId", "==", user.uid).onSnapshot(snapshot => {
@@ -24,8 +25,15 @@ export default function TasksContainer ({user, setShowModal, setModalProps}) {
         })
     }
 
-    const sortTasks = () => {
-        console.log('tasks sorted')
+    const sortTasks = (sortParams, sortOrientantionDown) => {
+        if (sortParams === 'creationDate' && sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => new Date(b.creationDate.toDate()) - new Date(a.creationDate.toDate()))) }
+        else if (sortParams === 'creationDate' && !sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => new Date(a.creationDate.toDate()) - new Date(b.creationDate.toDate()))) }
+        else if (sortParams === 'dueDate' && sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => new Date(b.dueDate.toDate()) - new Date(a.dueDate.toDate()))) }
+        else if (sortParams === 'dueDate' && !sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => new Date(a.dueDate.toDate()) - new Date(b.dueDate.toDate()))) }
+        else if (sortParams === 'priority' && sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => parseInt(a.taskPriority) - parseInt(b.taskPriority))) }
+        else if (sortParams === 'priority' && !sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => parseInt(b.taskPriority) - parseInt(a.taskPriority))) }
+        else if (sortParams === 'state' && sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => a.taskState > b.taskState ? 1 : a.taskState < b.taskState ? -1 : 0)) }
+        else if (sortParams === 'state' && !sortOrientantionDown) { setSavedTasks(savedTasks.sort((a,b) => a.taskState > b.taskState ? -1 : a.taskState < b.taskState ? 1 : 0)) }
     }
 
     const handleOnDragEnd = (result) => {
@@ -39,12 +47,14 @@ export default function TasksContainer ({user, setShowModal, setModalProps}) {
     }
 
     useEffect(() => showSavedTasks(), [])
-    // useEffect(() => sortTasks(), [sortParams])
+    useEffect(() => sortTasks(sortParams, sortOrientantionDown), [sortParams, sortOrientantionDown])
 
     return (
         <section className='tasksContainer'>
             <SearchBar setSearchParams={setSearchParams} />
-            <SortingOptions sortParams={sortParams} setSortParams={setSortParams} />
+            <SortingOptions sortParams={sortParams} setSortParams={setSortParams} sortOrientantionDown={sortOrientantionDown} setSortOrientantionDown={setSortOrientantionDown} />
+            <p>sortParams: {sortParams}</p>
+            <p>sortOrientantionDown: {sortOrientantionDown ? 'true' : 'false'}</p>
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId='tasks'>
                     {(provided) => (

@@ -27,6 +27,9 @@ export default function Task ({taskData, setShowModal, setModalProps}) {
     return (
         <article className='task'>
             <header>
+
+                <button onClick={() => console.log(taskData)}>test</button>
+
                 <h2 className={taskData.taskState === 'completed' ? 'line-through' : null}>{taskData.taskTittle}</h2>
                 {taskData.taskState !== 'completed' ? <Icon icon={bxCheck} className='icon icon-done' onClick={() => onDone()} /> :
                     <Icon icon={arrowGoBackFill} className='icon icon-reverse' onClick={() => onReverse()} />}
